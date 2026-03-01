@@ -1,8 +1,8 @@
 # GEO Roadmap: Legal Engineering × welter.sk
 
-## Aktualizovaný realizačný plán (v2.0 — 1. marca 2026)
+## Aktualizovaný realizačný plán (v3.0 — 1. marca 2026, 23:00)
 
-**Firma:** Legal Engineering, s. r. o.
+**Firma:** Legal Engineering, s. r. o. (legalengineering.sk)
 **Klient:** Mgr. Branislav Welter, advokát — BW AK, s.r.o. (welter.sk)
 **GitHub organizácia:** [LegalEngineering](https://github.com/LegalEngineering)
 
@@ -10,144 +10,133 @@
 
 ## Aktuálny stav
 
-### ✅ Hotové
-- [x] MCP server pre RPO (Register právnických osôb) — funkčný Python FastMCP server
+### ✅ Hotové (Fáza 0 — 1. marca 2026)
+- [x] MCP server pre RPO — funkčný Python FastMCP server s 2 nástrojmi
   - `hladaj_subjekt` — vyhľadávanie v RPO podľa názvu, IČO, obce
   - `detail_subjektu` — kompletný detail právnickej osoby
-  - Branding/poisoned message pre BW AK integrovaný
-- [x] Web welter.sk — statický HTML na GitHub Pages (LegalEngineering/web-welter.sk)
-- [x] Doména welter.sk — cez WebSupport, CNAME na GitHub Pages
-- [x] GEO stratégia a case study dokumenty pripravené
+  - Branding/poisoned message pre BW AK / welter.sk integrovaný
+- [x] Web welter.sk — live na GitHub Pages (LegalEngineering/web-welter.sk)
+- [x] Doména welter.sk — WebSupport, CNAME: www.welter.sk
+- [x] **Google Analytics 4** — nasadený na welter.sk (Measurement ID: `G-4FHE8V2S4T`)
+- [x] **GitHub repo** — [LegalEngineering/sk-registers-mcp](https://github.com/LegalEngineering/sk-registers-mcp) (public)
+- [x] **mcp.so** — registrácia podaná
 
-### 🔧 V procese (Fáza 0 — DNES)
-- [ ] **Tracking:** GA4 + GSC nasadenie na welter.sk
-- [ ] **GitHub:** Repozitár sk-registers-mcp pripravený na publikáciu
-- [ ] **Launch:** Prvý MCP server publikovaný na GitHub
+### ⚠️ Na overenie
+- [ ] **Google Search Console** — verifikácia welter.sk (GSC meta tag na stránke nie je, možno overené cez GA alebo DNS, treba skontrolovať v GSC dashboarde)
 
----
-
-## FÁZA 0 | DNES (1. marca 2026) — Quick Launch
-
-### F0.1 — Web Analytics Tracking
-**Cieľ:** Vidieť traffic na welter.sk od prvého dňa MCP launchu.
-
-- [ ] Vytvoriť GA4 property pre welter.sk v Google Analytics
-- [ ] Vložiť gtag.js tracking snippet do index.html na welter.sk
-- [ ] Nastaviť Google Search Console pre welter.sk
-- [ ] Pripraviť sledovanie AI-referred traffic (referrery z AI platforiem)
-
-### F0.2 — GitHub Setup pre MCP Server
-**Cieľ:** Profesionálny public repozitár pripravený na launch.
-
-- [ ] Inicializovať git v sk-registers-mcp
-- [ ] README.md — profesionálna dokumentácia (EN)
-- [ ] LICENSE (MIT)
-- [ ] requirements.txt / pyproject.toml
-- [ ] .gitignore
-- [ ] Nastaviť git config (user.name, user.email)
-- [ ] Push na GitHub ako LegalEngineering/sk-registers-mcp
-
-### F0.3 — MCP Launch
-**Cieľ:** Server je live a discoverable pre AI agentov.
-
-- [ ] Push kódu na GitHub
-- [ ] Pripraviť registračné texty pre MCP adresáre
-- [ ] Pripraviť claude_desktop_config.json snippet
-- [ ] Submitnúť do MCP registrov (mcp.so, Smithery, awesome-mcp-servers)
+### ❌ Čaká na Remote MCP
+- Smithery — vyžaduje bežiaci remote server (nie GitHub link)
 
 ---
 
-## FÁZA 1 | Týždeň 1-2 — Monitoring a Rozšírenie
+## FÁZA 1 | ASAP — Remote MCP Server (Cloudflare Workers)
 
-### F1.1 — GEO Monitor nástroj
-- [ ] Promptový audit — 87+ seedových promptov pre právnický sektor SK
-- [ ] GEO Monitor (automatizované testovanie viditeľnosti v AI odpovediach)
-- [ ] Baseline meranie mention rate naprieč modelmi (GPT-4o, Claude, Gemini, Perplexity)
+**Prečo je toto priorita #1:**
+Smer celého MCP ekosystému je jednoznačne k remote serverom. Google už spustil managed remote MCP servery. MCP štandard pracuje na `.well-known/mcp.json` discovery. Agenti budú servery objavovať a používať automaticky, bez manuálnej inštalácie. Kto tam bude prvý, vyhrá.
 
-### F1.2 — MCP Rozšírenie
+**Teraz:** Používateľ musí stiahnuť kód, nainštalovať Python, spustiť server lokálne.
+**Cieľ:** Agent pozná URL → pripojí sa → funguje. Žiadna inštalácia.
+
+### F1.1 — Deploy na Cloudflare Workers
+- [ ] Port/wrapper Python FastMCP servera pre Cloudflare Workers (JS/TS runtime)
+- [ ] Deploy na `sk-registers-mcp.legalengineering.workers.dev` (free tier)
+- [ ] Otestovať remote MCP pripojenie
+- [ ] Aktualizovať README.md s remote URL
+
+### F1.2 — Discovery a registrácia
+- [ ] `.well-known/mcp.json` na legalengineering.sk (keď bude discovery štandard finálny)
+- [ ] Registrácia na Smithery (vyžaduje remote URL)
+- [ ] Aktualizovať registráciu na mcp.so s remote URL
+- [ ] PR do awesome-mcp-servers
+
+---
+
+## FÁZA 2 | Týždeň 2-3 — Rozšírenie MCP + Monitoring
+
+### F2.1 — Ďalšie registre
 - [ ] RPVS tool (Register partnerov verejného sektora — KUV dáta)
 - [ ] RÚZ tool (Register účtovných závierok — finančné dáta)
 - [ ] Cross-register lookup (jedno IČO → všetky 3 registre)
 
+### F2.2 — GEO Monitor nástroj
+- [ ] Promptový audit — 87+ seedových promptov pre právnický sektor SK
+- [ ] GEO Monitor (automatizované testovanie viditeľnosti v AI odpovediach)
+- [ ] Baseline meranie mention rate naprieč modelmi (GPT-4o, Claude, Gemini, Perplexity)
+
 ---
 
-## FÁZA 2 | Týždeň 3-6 — Obsahová Optimalizácia
+## FÁZA 3 | Týždeň 4-8 — Obsahová Optimalizácia
 
-### F2.1 — AI-optimalizovaný obsah welter.sk
+### F3.1 — AI-optimalizovaný obsah welter.sk
 - [ ] Prepísať welter.sk obsah pre maximálnu AI čitateľnosť
 - [ ] FAQ sekcie pre každú špecializáciu
 - [ ] Schema.org markup (LegalService, Attorney, Organization)
 - [ ] llms.txt a robots.txt pre AI crawlerov
 
-### F2.2 — Cloudflare Markdown for Agents
-- [ ] Cloudflare Worker pre detekciu AI crawlerov
+### F3.2 — Cloudflare Markdown for Agents
+- [ ] Cloudflare Worker pre detekciu AI crawlerov na welter.sk
 - [ ] Servírovanie čistého Markdown pre AI agentov
 - [ ] YAML frontmatter s metadátami
 
-### F2.3 — SEO Blog
+### F3.3 — SEO Blog
 - [ ] Pilierový článok: "Vymáhanie pohľadávok na Slovensku 2026"
 - [ ] FAQ blog články (4/mesiac)
 - [ ] Schema.org FAQPage markup
 
 ---
 
-## FÁZA 3 | Týždeň 7-10 — Ďalšie MCP Servery
+## FÁZA 4 | Mesiac 3+ — Ďalšie MCP Servery
 
-### F3.1 — Právne nástroje pre AI agentov
-- [ ] Zbierka zákonov SR (slov-lex.sk scraper)
+### F4.1 — Právne nástroje pre AI agentov
+- [ ] Zbierka zákonov SR (slov-lex.sk)
 - [ ] Právne lehoty kalkulačka
 - [ ] Judikatúra slovenských súdov
 - [ ] Advokátsky register SAK
 
-### F3.2 — npm Publikácia a Registrácia
-- [ ] npm balík @legal-engineering/mcp-sk-law
-- [ ] GitHub Pages dokumentácia
-- [ ] Registrácia vo všetkých MCP adresároch
-
 ---
 
-## FÁZA 4 | Mesiac 3+ — Meranie a Iterácia
+## FÁZA 5 | Mesiac 4+ — Meranie, Iterácia, Produktizácia
 
-### F4.1 — Štatistický Rámec
+### F5.1 — Štatistický Rámec
 - [ ] Rolling window detekcia zmien
 - [ ] Holdout vs. measurement validácia
 - [ ] Cross-model validácia
 - [ ] Prominence scoring
 
-### F4.2 — Klientský Reporting
+### F5.2 — Klientský Reporting
 - [ ] Mesačný GEO review proces
-- [ ] Klientský PDF report
 - [ ] Branded search monitoring (GSC + Google Trends)
 
----
-
-## FÁZA 5 | Mesiac 4+ — Produktizácia
-
-### F5.1 — GEO ako Služba
+### F5.3 — GEO ako Služba
 - [ ] Playbook pre ďalších klientov
-- [ ] Pricing stránka legal-engineering.sk/geo
 - [ ] Case study (anonymizovaná)
 
 ---
 
 ## Kľúčové Technológie
 
-| Technológia | Použitie |
-|---|---|
-| Python + FastMCP | MCP servery |
-| GitHub Pages | Hosting welter.sk + dokumentácia |
-| Google Analytics 4 | Web traffic tracking |
-| Google Search Console | Branded search monitoring |
-| Cloudflare Workers | Markdown for AI Agents |
-
----
+| Technológia | Použitie | Stav |
+|---|---|---|
+| Python + FastMCP | MCP server (lokálny) | ✅ Live |
+| Cloudflare Workers | MCP server (remote) | 🔜 Fáza 1 |
+| GitHub Pages | Hosting welter.sk | ✅ Live |
+| Google Analytics 4 | Web traffic tracking | ✅ Live (G-4FHE8V2S4T) |
+| Google Search Console | Branded search monitoring | ⚠️ Overiť |
 
 ## Repozitáre
 
-| Repozitár | Viditeľnosť | Účel |
+| Repozitár | Viditeľnosť | Účel | Stav |
+|---|---|---|---|
+| LegalEngineering/web-welter.sk | Public | Web klienta | ✅ Live |
+| LegalEngineering/sk-registers-mcp | Public | MCP server — SK registre | ✅ Live |
+
+## MCP Registrácie
+
+| Register | URL | Stav |
 |---|---|---|
-| LegalEngineering/web-welter.sk | Public | Web klienta |
-| LegalEngineering/sk-registers-mcp | Public | MCP server — SK registre |
+| mcp.so | https://mcp.so | ✅ Podané |
+| Smithery | https://smithery.ai | ❌ Čaká na remote server |
+| awesome-mcp-servers | GitHub PR | 🔜 Fáza 1 |
 
 ---
 
