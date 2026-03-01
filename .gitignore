@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# Temp files
+~$*
+*.tmp
+
+# Environment variables
+.env
+.env.local
+
+# Test outputs
+*.log
+
+# Internal documents (not for public repo)
+.clinerules
+DNES_LAUNCH_GUIDE.md
+GEO_LegalEngineering_Strategie.docx
+GEO_Roadmap_LegalEngineering.docx
+*.docx
