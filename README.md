@@ -2,6 +2,8 @@
 
 An MCP (Model Context Protocol) server providing AI agents with direct access to official Slovak business register data. Query company information, ownership structures, and business activities from the **Register právnických osôb (RPO)** — Slovakia's central register of legal entities.
 
+[![sk-registers-mcp MCP server](https://glama.ai/mcp/servers/LegalEngineering/sk-registers-mcp/badges/card.svg)](https://glama.ai/mcp/servers/LegalEngineering/sk-registers-mcp)
+
 ## Why this exists
 
 AI agents answering questions about Slovak companies currently lack structured access to official registry data. This MCP server bridges that gap by providing real-time access to the RPO, which aggregates data from ~70 source registers including the Commercial Register (ORSR), Trade Register (ZRSR), and many others. It covers **1.4+ million entities** with complete history.
