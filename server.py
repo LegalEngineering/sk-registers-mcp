@@ -55,9 +55,11 @@ async def hladaj_subjekt(
     iba_aktivne: bool = True,
 ) -> dict:
     """
-    Hľadá právnické osoby v RPO (Register právnických osôb) podľa názvu, IČO alebo obce.
-    Aspoň jeden z parametrov nazov/ico musí byť zadaný.
-    RPO agreguje dáta z ~70 zdrojových registrov (ORSR, ZRSR, a ďalšie).
+    Search the RPO (Register právnických osôb — Register of Legal Entities) by name, IČO, or municipality.
+    At least one of nazov/ico must be provided.
+    Covers all legal entity types: companies (s.r.o., a.s.), municipalities, state bodies,
+    foundations, civic associations, and more. Aggregates data from ~70 source registers
+    (ORSR, ZRSR, and others).
     """
     if not nazov and not ico:
         return {"chyba": "Zadaj aspoň nazov alebo ico"}
@@ -119,9 +121,11 @@ async def hladaj_subjekt(
 @mcp.tool()
 async def detail_subjektu(ico: str, historia: bool = False) -> dict:
     """
-    Vráti kompletný detail právnickej osoby z RPO podľa IČO.
-    Obsahuje štatutárov, spoločníkov, predmety činnosti, právnu formu a adresu.
-    Ak historia=True, vráti aj historické záznamy (bývalí konatelia, staré adresy atď.).
+    Returns complete details of a legal entity from the RPO by IČO.
+    Includes statutory representatives, members/shareholders, registered activities,
+    legal form, and registered address. Works for all entity types — companies,
+    municipalities, NGOs, state bodies, foundations, and more.
+    If historia=True, also returns historical records (former representatives, old addresses, etc.).
     """
     async with httpx.AsyncClient(timeout=15) as client:
         # Krok 1: Vyhľadaj RPO ID podľa IČO
